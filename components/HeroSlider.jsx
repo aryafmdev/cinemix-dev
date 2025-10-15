@@ -82,6 +82,21 @@ export default function HeroSlider({ movies =[] }) {
                       {getMediaTitle(media)}
                     </h1>
                   </Link>
+                  <p className='text-sm sm:text-sm md:text-lg mt-0.5 sm:mt-2 text-yellow-400 font-semibold sm:leading-5'>
+                    {getGenres(media)}
+                  </p>
+                  <p className='text-sm sm:text-sm md:text-lg mt-5 line-clamp-5 hidden sm:block sm:leading-5'>
+                    {media.overview || 'No Description Available'}
+                  </p >
+                  <p className='text-sm sm:text-sm md:text-lg mt-5 sm:leading-5'>
+                    <span className='mr-4'>⭐ {media.vote_average.toFixed(1)}</span>
+                    {media.media_type === "movie" && (
+                      <>
+                        <span className='mr-4'>|</span>
+                        <span>{formatDuration(media)}</span>
+                      </>
+                    )}
+                  </p>
                 </div>
               </div>
             </div>
