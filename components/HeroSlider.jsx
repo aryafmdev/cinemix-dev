@@ -99,7 +99,13 @@ export default function HeroSlider({ movies = [] }) {
                       </>
                     )}
                   </p>
-                  <button className={`mt-5 sm:mt-8 inline-block bg-yellow-400 px-4 sm:px-4 py-2 sm:py-2 md:px-6 md:py-3 text-black font-semibold rounded-lg hover:bg-yellow-500 transition text-sm sm:text-base md:text-base ${!media.id ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}>
+                  <button
+                    className={`mt-5 sm:mt-8 inline-block bg-yellow-400 px-4 sm:px-4 py-2 sm:py-2 md:px-6 md:py-3 text-black font-semibold rounded-lg hover:bg-yellow-500 transition text-sm sm:text-base md:text-base ${
+                      !media.id
+                        ? 'cursor-not-allowed opacity-50'
+                        : 'cursor-pointer'
+                    }`}
+                  >
                     Watch Trailer
                   </button>
                 </div>
@@ -108,6 +114,24 @@ export default function HeroSlider({ movies = [] }) {
           </SwiperSlide>
         ))}
       </Swiper>
+
+      {/* the navigation buttons */}
+      {movies.length > 1 && (
+        <div className='absolute right-4 sm:right-8 md:right-12 top-1/2 -translate-y-1/2 flex flex-col gap-2 z-1'>
+          {movies.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => handleButtonClick(index)}
+              aria-label={`slide ${index + 1}`}
+              className={`w-4 h-4 sm:w-4 sm:h-4 md:w-5 md:h-5 rounded-full border-2 transition-colors ${
+                currentSlide === index
+                  ? 'bg-yellow-400 border-yellow-400'
+                  : 'bg-transparent border-white'
+              }`}
+            ></button>
+          ))}
+        </div>
+      )}
     </section>
   );
 }
