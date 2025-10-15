@@ -8,7 +8,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/effect-fade';
 import Link from 'next/link';
 
-export default function HeroSlider({ movies =[] }) {
+export default function HeroSlider({ movies = [] }) {
   const [currentSlide, setCurrentSlide] = useState(0); // state to track the current slide index
   const [swiperInstance, setSwiperInstance] = useState(null); // store swiper instance for controlling slide navigation
 
@@ -87,16 +87,21 @@ export default function HeroSlider({ movies =[] }) {
                   </p>
                   <p className='text-sm sm:text-sm md:text-lg mt-5 line-clamp-5 hidden sm:block sm:leading-5'>
                     {media.overview || 'No Description Available'}
-                  </p >
+                  </p>
                   <p className='text-sm sm:text-sm md:text-lg mt-5 sm:leading-5'>
-                    <span className='mr-4'>⭐ {media.vote_average.toFixed(1)}</span>
-                    {media.media_type === "movie" && (
+                    <span className='mr-4'>
+                      ⭐ {media.vote_average.toFixed(1)}
+                    </span>
+                    {media.media_type === 'movie' && (
                       <>
                         <span className='mr-4'>|</span>
                         <span>{formatDuration(media)}</span>
                       </>
                     )}
                   </p>
+                  <button className={`mt-5 sm:mt-8 inline-block bg-yellow-400 px-4 sm:px-4 py-2 sm:py-2 md:px-6 md:py-3 text-black font-semibold rounded-lg hover:bg-yellow-500 transition text-sm sm:text-base md:text-base ${!media.id ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}>
+                    Watch Trailer
+                  </button>
                 </div>
               </div>
             </div>
