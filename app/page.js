@@ -1,6 +1,7 @@
 import HeroSection from "@/components/HeroSection";
 import TrendingMovies from "@/components/TrendingMovies";
 import TopRatedMovies from "@/components/TopRatedMovies";
+import TrendingTvSeries from "@/components/TrendingTvSeries";
 
 export default function Home() {
   return (
@@ -8,6 +9,7 @@ export default function Home() {
       <HeroSection />
       <TrendingMovies />
       <TopRatedMovies />
+      <TrendingTvSeries />
     </div>
   );
 }
