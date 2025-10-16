@@ -41,6 +41,7 @@ export default function Header() {
     }
 
     // show loading indicator before starting API call
+    setIsLoading(true);
     try {
       // get TMDB API key from .env.local
       const apiKey = process.env.NEXT_PUBLIC_TMDB_API_KEY;
@@ -90,6 +91,19 @@ export default function Header() {
     }
   };
 
+  // handle Enter key to trigger search without clicking the button
+  const handleSearchKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      if (searchTerm.trim()) {
+        setIsSearchOpen(true);
+        fetchSuggestions(searchTerm);
+      } else {
+        setIsSearchOpen(false);
+        setSuggestions([]);
+      }
+    }
+  };
+
   return (
     <motion.header
       className='bg-transparent text-white w-full py-2 z-50 px-4 md:px-10 xl:px-36 absolute top-0 left-0'
@@ -132,6 +146,7 @@ export default function Header() {
             className='w-full px-4 py-1.5 lg:py-3 bg-white text-sm text-gray-500 focus:outline-none placeholder-gray-500 rounded-xl border border-gray-500 focus:border-white pr-10'
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
+            onKeyDown={handleSearchKeyDown}
           />
           <button
             className='absolute top-1/2 right-3 transform -translate-y-1/2 cursor-default'
@@ -241,6 +256,7 @@ export default function Header() {
             className='w-full px-4 py-2 bg-white text-gray-500 focus:outline-none placeholder-gray-500 rounded-xl border border-gray-500 focus:border-white pr-10'
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
+            onKeyDown={handleSearchKeyDown}
           />
           <button
             className='absolute top-1/2 right-3 transform -translate-y-1/2 cursor-pointer'
