@@ -7,10 +7,23 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/effect-fade';
 import Link from 'next/link';
+import useSWR from 'swr';
+import TrailerModal from './TrailerModal';
+
+// fetch data from the url and return it as JSON and throw error if the request fails
+const fetcher = (url) =>
+  fetch(url).then((res) => {
+    if (!res.ok) {
+      throw new Error('Failed to fetch trailer');
+    }
+    return res.json();
+  });
 
 export default function HeroSlider({ movies = [] }) {
   const [currentSlide, setCurrentSlide] = useState(0); // state to track the current slide index
   const [swiperInstance, setSwiperInstance] = useState(null); // store swiper instance for controlling slide navigation
+  const [isModalOpen, setIsModalOpen] = useState(false); // state to show or hide the trailer modal
+  const [selectedMedia, setSelectedMedia] = useState(null); // state to store the selected media to display the trailer
 
   // create a function to get the media title
   const getMediaTitle = (media) => {
@@ -47,6 +60,38 @@ export default function HeroSlider({ movies = [] }) {
       swiperInstance.slideToLoop(index);
       setCurrentSlide(index);
     }
+  };
+
+  // fetch trailer videos for the selected media using SWR
+  // fallback media_type to 'movie' to handle data sources that don't include media_type
+  const mediaType = selectedMedia?.media_type || 'movie';
+  const { data: trailerData, error } = useSWR(
+    selectedMedia
+      ? `https://api.themoviedb.org/3/${mediaType}/${selectedMedia.id}/videos?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=en-US`
+      : null,
+    fetcher
+  );
+
+  // find the first youtube trailer form the fetched videos
+  const trailer = trailerData?.results?.find(
+    (video) => video.site === 'YouTube' && video.type === 'Trailer'
+  );
+
+  // build the youtube embed URL for the trailer if it founds
+  const trailerUrl = trailer 
+    ? `https://www.youtube.com/embed/${trailer.key}?autoplay=1&playsinline=1&mute=1&controls=1&rel=0&modestbranding=1`
+    : null;
+
+  // open the trailer modal and set the selected media to display the trailer
+  const openModal = (media) => {
+    setSelectedMedia(media);
+    setIsModalOpen(true);
+  };
+
+  // close the trailer modal and clear the selected media
+  const closeModal = () => {
+    setSelectedMedia(null);
+    setIsModalOpen(false);
   };
 
   return (
@@ -100,6 +145,8 @@ export default function HeroSlider({ movies = [] }) {
                     )}
                   </p>
                   <button
+                    onClick={() => openModal(media)}
+                    disabled={!media.id}
                     className={`mt-5 sm:mt-8 inline-block bg-yellow-400 px-4 sm:px-4 py-2 sm:py-2 md:px-6 md:py-3 text-black font-semibold rounded-lg hover:bg-yellow-500 transition text-sm sm:text-base md:text-base ${
                       !media.id
                         ? 'cursor-not-allowed opacity-50'
@@ -132,6 +179,13 @@ export default function HeroSlider({ movies = [] }) {
           ))}
         </div>
       )}
+
+      <TrailerModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        trailerUrl={trailerUrl}
+        title={selectedMedia ? getMediaTitle(selectedMedia) : 'Trailer'}
+      />
     </section>
   );
 }
