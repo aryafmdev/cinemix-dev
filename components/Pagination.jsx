@@ -6,7 +6,7 @@ export default function Pagination({ currentPage, totalPages, onPageChange }) {
   const isLastPage = currentPage >= totalPages;
 
   // maximum number of page button to display in pagination
-  const maxPagesToShow = 5;
+  const maxPagesToShow = 10;
 
   // calculate the first page number to display in pagination
   const startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
