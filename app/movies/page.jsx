@@ -6,6 +6,7 @@ import Pagination from '@/components/Pagination';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import FilterSection from '@/components/FilterSection';
+import React, { useMemo } from 'react';
 
 // create helper function to fetch JSON data from URL ( used with SWR to automatically fetch and cache data)
 const fetcher = (url) =>
@@ -71,11 +72,8 @@ export default function MoviesPage() {
       apiUrl.searchParams.set('primary_release_date.lte', yearRange.lte);
   }
 
-  // define the TMDB API URL to get a list of popular movies - include the page at the api url
-  // const apiUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&page=${page}&sort_by=popularity.desc`;
-
   // use SWR to fetch and cache the movie data
-  const { data: moviesData } = useSWR(apiUrl, fetcher);
+  const { data: moviesData } = useSWR(apiUrl.toString(), fetcher);
 
   // -filter section- step 6 : fetch genres and languages for filter dropdown options
   const { data: languagesData } = useSWR(

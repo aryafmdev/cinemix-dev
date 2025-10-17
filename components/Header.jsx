@@ -183,7 +183,7 @@ export default function Header() {
                           src={
                             item.poster_path
                               ? `https://image.tmdb.org/t/p/w500${item.poster_path}`
-                              : '/default_poster.jpg'
+                              : '/default-poster.jpg'
                           }
                           alt=''
                           width={32}
@@ -292,7 +292,7 @@ export default function Header() {
                           src={
                             item.poster_path
                               ? `https://image.tmdb.org/t/p/w500${item.poster_path}`
-                              : '/default_poster.jpg'
+                              : '/default-poster.jpg'
                           }
                           alt=''
                           width={32}
