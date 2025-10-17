@@ -89,13 +89,15 @@ export default function MoviesPage() {
   // -filter section- step 7 : add a helper function manually filter movies in search mode (because TMDB search endpoint doesn't support filter params)
   function filterMovies(movies, { genre, yearRange, rating, language }) {
     return movies.filter((movie) => {
-      const date = new Date(movie.release_date || '');
+      const date = movie.release_date ? new Date(movie.release_date) : null;
+      const gteOk = !yearRange.gte || (date && date >= new Date(yearRange.gte));
+      const lteOk = !yearRange.lte || (date && date <= new Date(yearRange.lte));
       return (
         (genre === 'all' || movie.genre_ids.includes(Number(genre))) &&
         (language === 'all' || movie.original_language === language) &&
         (rating === 'all' || movie.vote_average >= Number(rating)) &&
-        (yearRange.gte || date >= new Date(yearRange.gte)) &&
-        (yearRange.lte || date <= new Date(yearRange.lte))
+        gteOk &&
+        lteOk
       );
     });
   }
@@ -135,7 +137,7 @@ export default function MoviesPage() {
       <FilterSection
         genres={genres}
         languages={languages}
-        placeholder='Search For Movies...'
+        placeholder='Search Movies'
       />
 
       {/* use filteredMovies instead of movies in mediaDisplay component */}
