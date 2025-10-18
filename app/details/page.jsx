@@ -6,6 +6,7 @@ import { useState } from 'react';
 import useSWR from 'swr';
 import Card from '@/components/Card';
 import TrailerModal from '@/components/TrailerModal';
+import { Suspense } from 'react';
 
 // create a helper fetcher funtion for useSWR
 const fetcher = (url) =>
@@ -14,7 +15,7 @@ const fetcher = (url) =>
     return res.json();
   });
 
-export default function DetailsPage() {
+function DetailsPageContent() {
   // get url parameters (id and media_type)
   const searchParams = useSearchParams();
   const id = searchParams.get('id');
@@ -205,7 +206,7 @@ export default function DetailsPage() {
       {recommendations?.results?.length > 0 && (
         <section className='container mx-auto px-6 sm:px-12 md:px-40 py-6 sm:py-8'>
           <h2 className='text-xl sm:text-2xl md:text-3xl font-semibold mb-3 sm:mb-4'>
-            Recommended {mediaType === 'movie' ? 'Movies' : 'tvSeries'}
+            Recommended {mediaType === 'movie' ? 'Movies' : 'TV Series'}
           </h2>
           <div className='flex overflow-x-auto gap-3 sm:gap-4 pb-4'>
             {recommendations.results.slice(0, 10).map((item) => (
@@ -225,5 +226,15 @@ export default function DetailsPage() {
         title={getTitle()}
       />
     </div>
+  );
+}
+
+export default function DetailsPage() {
+  return (
+    <Suspense
+      fallback={<div className='text-white text-center mt-10'>Loading...</div>}
+    >
+      <DetailsPageContent />
+    </Suspense>
   );
 }

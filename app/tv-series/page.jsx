@@ -7,6 +7,7 @@ import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import FilterSection from '@/components/FilterSection';
 import React, { useMemo } from 'react';
+import { Suspense } from 'react';
 
 // create helper function to fetch JSON data from URL ( used with SWR to automatically fetch and cache data)
 const fetcher = (url) =>
@@ -27,7 +28,7 @@ const yearRanges = {
   '1990-1999': { gte: '1990-01-01', lte: '1999-12-31' },
 };
 
-export default function MoviesPage() {
+function TvSeriesPageContent() {
   const router = useRouter(); // to change the page url when the pagination happens
   const pathname = usePathname(); // to get the current page path
   const searchParams = useSearchParams(); // to read the current url query (like: ?page=2)
@@ -86,18 +87,16 @@ export default function MoviesPage() {
     fetcher
   );
 
-  // -filter section- step 7 : add a helper function manually filter tv series in search mode (because TMDB search endpoint doesn't support filter params)
-  function filterTvSeries(tvSeries, { genre, yearRange, rating, language }) {
-    return tvSeries.filter((tvSeries) => {
-      const date = tvSeries.first_air_date
-        ? new Date(tvSeries.first_air_date)
-        : null;
+  // -filter section- step 7 : add a helper function manually filter tv series in search mode
+  function filterTvSeries(series, { genre, yearRange, rating, language }) {
+    return series.filter((tv) => {
+      const date = tv.first_air_date ? new Date(tv.first_air_date) : null;
       const gteOk = !yearRange.gte || (date && date >= new Date(yearRange.gte));
       const lteOk = !yearRange.lte || (date && date <= new Date(yearRange.lte));
       return (
-        (genre === 'all' || tvSeries.genre_ids.includes(Number(genre))) &&
-        (language === 'all' || tvSeries.original_language === language) &&
-        (rating === 'all' || tvSeries.vote_average >= Number(rating)) &&
+        (genre === 'all' || tv.genre_ids.includes(Number(genre))) &&
+        (language === 'all' || tv.original_language === language) &&
+        (rating === 'all' || tv.vote_average >= Number(rating)) &&
         gteOk &&
         lteOk
       );
@@ -159,5 +158,13 @@ export default function MoviesPage() {
         />
       )}
     </div>
+  );
+}
+
+export default function MoviesPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <TvSeriesPageContent />
+    </Suspense>
   );
 }
