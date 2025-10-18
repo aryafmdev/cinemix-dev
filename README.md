@@ -1,17 +1,26 @@
-# Cinexplorer klik disini https://cinexplorer-pi.vercel.app/
+# Cinexplorer
 
-**Cinexplorer** adalah aplikasi web yang memungkinkan pengguna untuk mencari, menjelajahi, dan mengetahui informasi terkait berbagai film dan serial TV. Dengan antarmuka yang ramah pengguna dan desain modern, Cinexplorer memberikan pengalaman yang menyenangkan bagi penggemar film dan televisi.
+Click this link for review Cinexplorer
+https://cinexplorer-pi.vercel.app/
 
-Aplikasi ini terintegrasi dengan berbagai API penyedia informasi film, memungkinkan pengguna untuk menemukan informasi tentang film terbaru, detail alur cerita, rating, dan banyak lagi.
+**Cinexplorer** is a web application that allows users to search, explore, and discover information about various movies and TV series. With a user-friendly interface and modern design, Cinexplorer provides an enjoyable experience for movie and TV enthusiasts.
 
-## Fitur Utama
-- **Pencarian Film & TV Series**: Cari film dan serial TV dengan cepat menggunakan fitur pencarian canggih.
-- **Detail Film**: Lihat informasi lengkap mengenai film, seperti sinopsis, rating, dan genre.
-- **Desain Responsif**: Tampilan yang menarik dan mudah digunakan di berbagai perangkat, mulai dari desktop hingga ponsel.
-- **Terhubung dengan API Terpercaya**: Mengambil data secara real-time dari sumber terpercaya untuk memberikan informasi yang akurat dan terkini.
+This app is integrated with various movie information provider APIs, enabling users to find information about the latest films, plot details, ratings, and much more.
 
-## Teknologi yang Digunakan
-- **React**: Untuk membangun antarmuka pengguna yang responsif dan interaktif.
-- **Next.js**: Framework React yang memungkinkan aplikasi untuk dibangun dengan cara yang cepat dan efisien, serta mendukung server-side rendering.
-- **Tailwind CSS**: Untuk desain UI yang modern dan responsif.
-- **Vercel**: Platform hosting yang digunakan untuk deploy aplikasi.
+## Key Features
+
+* **Movie & TV Series Search**: Quickly search for movies and TV series with an advanced search feature.
+* **Movie Details**: View complete information about movies, such as synopses, ratings, and genres.
+* **Responsive Design**: An attractive and easy-to-use interface on various devices, from desktops to mobile phones.
+* **Connected to Trusted APIs**: Fetch data in real-time from reliable sources to provide accurate and up-to-date information.
+
+## Technologies Used
+
+* **React**: For building a responsive and interactive user interface.
+* **Next.js**: A React framework that enables fast and efficient app development, supporting server-side rendering.
+* **Tailwind CSS**: For a modern and responsive UI design.
+* **Vercel**: The hosting platform used to deploy the application.
+
+---
+
+This version reflects the original content in English. Let me know if you need further adjustments!
