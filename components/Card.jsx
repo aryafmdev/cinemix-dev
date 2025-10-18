@@ -72,7 +72,7 @@ export default function Card({ media }) {
             fill
             className='object-cover rounded-t-lg transition-all group-hover:brightness-95'
             sizes='33vw'
-            quality={90}
+            quality={75}
           />
         </div>
       </Link>

@@ -121,7 +121,7 @@ export default function DetailsPage() {
               width={300}
               height={450}
               className='w-full object-cover rounded-lg'
-              quality={90}
+              quality={75}
             />
             <button
               onClick={openModal}
@@ -188,7 +188,7 @@ export default function DetailsPage() {
                       width={64}
                       height={64}
                       className='size-16 sm:size-20 object-cover rounded-full'
-                      quality={90}
+                      quality={75}
                     />
                     <p className='text-xs sm:text-sm text-center mt-1 sm:mt-2 line-clamp-2'>
                       {actor.name}
