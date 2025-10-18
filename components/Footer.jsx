@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { Copyright } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -14,8 +13,6 @@ export default function Footer() {
 
         {/* Right: Copyright text with icon */}
         <div className='flex items-center space-x-1 text-base'>
-          <span>Copyright</span>
-          <Copyright className='text-white' size={16} />
           <span>2025 Movie Explorer</span>
         </div>
       </div>
