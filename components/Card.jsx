@@ -21,8 +21,11 @@ export default function Card({ media }) {
     title,
     name,
     vote_average: voteAverage,
-    media_type: mediaType = 'movie',
+    media_type: mediaTypeRaw,
   } = media || {};
+
+  // infer media type when missing: TMDB 'movie' has title, 'tv' has name
+  const mediaType = mediaTypeRaw || (title ? 'movie' : name ? 'tv' : 'movie');
 
   //fallback title if name or title are missing
   const displayTitle = title || name || 'Untitled';
